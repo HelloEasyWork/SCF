@@ -12,3 +12,5 @@ obj/
 /src/Senparc.Web/logs/
 /src/Senparc.Database
 *.user
+/src/Senparc.Web.OldMvc
+/src/Senparc.Web/App_Data/SenparcTraceLog/*

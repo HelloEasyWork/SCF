@@ -11,15 +11,6 @@
       </ReferencePath>
     </ItemGroup>
   </Target>
-
-  <ItemGroup>
-    <Compile Remove="Cache\BaseCache\CacheStrategyFactory.cs" />
-    <Compile Remove="Cache\BaseCache\LocalCacheStrategy.cs" />
-    <Compile Remove="Cache\BaseCache\MemcachedStrategy.cs" />
-    <Compile Remove="Cache\BaseCache\RedisStrategy.cs" />
-    <Compile Remove="Cache\Interface\IBaseCacheStrategy.cs" />
-    <Compile Remove="Models\DataBaseModel\Mapping\AccountTypeConfigurationMapping.cs" />
-  </ItemGroup>
   
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.2.0" />
@@ -28,14 +19,15 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Senparc.Weixin" Version="6.3.4.2" />
-    <PackageReference Include="Senparc.Weixin.Cache.Memcached" Version="2.3.2.1" />
-    <PackageReference Include="Senparc.Weixin.Cache.Redis" Version="2.5.0.1" />
-    <PackageReference Include="Senparc.Weixin.MP" Version="16.6.7" />
+    <PackageReference Include="Senparc.Weixin" Version="6.3.8.2" />
+    <PackageReference Include="Senparc.Weixin.Cache.Memcached" Version="2.3.3" />
+    <PackageReference Include="Senparc.Weixin.Cache.Redis" Version="2.5.1" />
+    <PackageReference Include="Senparc.Weixin.MP" Version="16.6.11" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Senparc.Log\Senparc.Log.csproj" />
+    <ProjectReference Include="..\Senparc.Scf.Core\Senparc.Scf.Core.csproj" />
     <ProjectReference Include="..\Senparc.Utility\Senparc.Utility.csproj" />
   </ItemGroup>
 

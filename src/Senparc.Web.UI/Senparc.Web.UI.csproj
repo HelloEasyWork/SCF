@@ -5,11 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="SectionAuthority\" />
+    <Compile Remove="SectionAuthority\**" />
+    <EmbeddedResource Remove="SectionAuthority\**" />
+    <None Remove="SectionAuthority\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Senparc.CO2NET" Version="0.5.1.1" />
+    <PackageReference Include="Senparc.CO2NET" Version="0.5.2" />
   </ItemGroup>
 
   <ItemGroup>

@@ -4,23 +4,23 @@ using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Routing;
 using Senparc.CO2NET;
 using Senparc.CO2NET.Extensions;
-using Senparc.Core.Cache;
-using Senparc.Core.Enums;
-using Senparc.Core.Extensions;
-using Senparc.Core.Models;
-using Senparc.Core.Models.VD;
-using Senparc.Log;
-using Senparc.Utility;
+using Senparc.Scf.Core.Cache;
+using Senparc.Scf.Core.Enums;
+using Senparc.Scf.Core.Extensions;
+using Senparc.Scf.Core.Models;
+using Senparc.Scf.Core.Models.VD;
+using Senparc.Scf.Log;
+using Senparc.Scf.Utility;
 using System;
 using System.Collections.Generic;
-using BaseVD = Senparc.Core.Models.VD;
+using BaseVD = Senparc.Scf.Core.Models.VD;
 
 namespace Senparc.Mvc.Controllers
 {
     //[RequireHttps]
     //[SenparcHandleError]
     [UserAuthorize("UserAnonymous")]
-    public class BaseController : Controller, IResultFilter
+    public class BaseController : Controller, IResultFilter, IValidatorEnvironment
     {
         //private ISystemConfigService _systemConfigService;
         protected FullSystemConfig _fullSystemConfig;
