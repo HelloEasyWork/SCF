@@ -12,6 +12,7 @@ using Microsoft.Extensions.Options;
 using Senparc.CO2NET;
 using Senparc.CO2NET.RegisterServices;
 using Senparc.CO2NET.Utilities;
+using Senparc.Core;
 using Senparc.Scf.Core;
 using Senparc.Scf.Core.Config;
 using Senparc.Scf.SMS;
@@ -53,12 +54,14 @@ namespace Senparc.Web
                 .Configure<SenparcSmsSetting>(Configuration.GetSection("SenparcSmsSetting"))//TODO：让SMS模块进行注册
                 ;
 
-           
-            services.AddHttpsRedirection(options =>
-            {
-                options.RedirectStatusCode = StatusCodes.Status307TemporaryRedirect;
-                options.HttpsPort = 443;
-            });
+
+            //启用以下代码强制使用 https 访问
+            //services.AddHttpsRedirection(options =>
+            //{
+            //    options.RedirectStatusCode = StatusCodes.Status307TemporaryRedirect;
+            //    options.HttpsPort = 443;
+            //});
+
 
             //添加 SenparcCoreSetting 配置文件（内容可以根据需要对应修改）
             //注册数据库客户端连接
@@ -89,6 +92,13 @@ namespace Senparc.Web
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+            app.UseStaticFiles(new StaticFileOptions()
+            {
+                FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(),@"node_modules")),
+                RequestPath = new PathString("/node_modules")
+            });
+
+
             app.UseCookiePolicy();
 
             app.UseMvc();
@@ -174,8 +184,8 @@ namespace Senparc.Web
             #region 注册第三方平台
 
                 .RegisterOpenComponent(senparcWeixinSetting.Value,
-                    //getComponentVerifyTicketFunc
-                    componentAppId =>
+                  //getComponentVerifyTicketFunc
+                  async componentAppId =>
                     {
 
                         var dir = Path.Combine(ServerUtility.ContentRootMapPath("~/App_Data/OpenTicket"));
@@ -189,14 +199,14 @@ namespace Senparc.Web
                         {
                             using (var sr = new StreamReader(fs))
                             {
-                                var ticket = sr.ReadToEnd();
+                                var ticket = await sr.ReadToEndAsync();
                                 return ticket;
                             }
                         }
                     },
 
-                     //getAuthorizerRefreshTokenFunc
-                     (componentAppId, auhtorizerId) =>
+                   //getAuthorizerRefreshTokenFunc
+                   async (componentAppId, auhtorizerId) =>
                      {
                          var dir = Path.Combine(ServerUtility.ContentRootMapPath("~/App_Data/AuthorizerInfo/" + componentAppId));
                          if (!Directory.Exists(dir))
